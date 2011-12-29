@@ -1,0 +1,8 @@
+library ../src/ur
+rewrite url Client/*
+database dbname=test
+sql client.sql
+allow mime image/jpeg
+script http://localhost/ajaxUpload.js
+
+client
