@@ -3,9 +3,10 @@ sequence ids
 table images : { Id : int, MimeType : string, Content : blob }
   PRIMARY KEY Id
 
-fun main () =
+fun choice b =
     status <- source <xml/>;
-    au <- AjaxUpload.render {OnBegin = set status <xml>Uploading</xml>,
+    au <- AjaxUpload.render {AutoSubmit = b,
+                             OnBegin = set status <xml>Uploading</xml>,
                              OnSuccess = fn h =>
                                             let
                                                 fun addImage () =
@@ -37,3 +38,8 @@ fun main () =
       <hr/>
       <dyn signal={signal status}/>
     </body></xml>
+
+fun main () = return <xml><body>
+  <a link={choice False}>Normal</a><br/>
+  <a link={choice True}>Auto-submit</a>
+</body></xml>

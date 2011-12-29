@@ -1,9 +1,8 @@
 #include <ctype.h>
-#include <stdio.h>
 
 #include <ajaxUpload.h>
 
-uw_Basis_string uw_AjaxUploadFfi_tweakForm(uw_context ctx, uw_Basis_string iframeId, uw_Basis_string submitId) {
+uw_Basis_string uw_AjaxUploadFfi_tweakForm(uw_context ctx, uw_Basis_bool autoSubmit, uw_Basis_string iframeId, uw_Basis_string submitId) {
   return uw_Basis_mstrcat(ctx,
                           "<iframe id=\"",
                           iframeId,
@@ -13,7 +12,11 @@ uw_Basis_string uw_AjaxUploadFfi_tweakForm(uw_context ctx, uw_Basis_string ifram
                           submitId,
                           "\"); subm.parentNode.target = \"",
                           iframeId,
-                          "\"; var onSub = subm.onmousedown; subm.onmousedown = undefined; subm.parentNode.onsubmit = function() { onSub(); return true; }; subm.withHandle = subm.onkeydown; subm.onkeydown = undefined; </script>",
+                          "\"; var onSub = subm.onmousedown; subm.onmousedown = undefined; subm.parentNode.onsubmit = function() { onSub(); return true; }; subm.withHandle = subm.onkeydown; subm.onkeydown = undefined; ",
+                          autoSubmit
+                          ? "subm.style.visibility = \"hidden\"; for (var node = subm.previousSibling; node.tagName != \"INPUT\"; node = node.previousSibling); node.onchange = function() { subm.parentNode.submit(); }; "
+                          : "",
+                          "</script>",
                           NULL);
 }
 

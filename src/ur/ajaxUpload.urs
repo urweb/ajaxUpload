@@ -12,7 +12,12 @@ datatype claim_result =
 val claim : handle -> transaction claim_result
 (* In server-side code, claim ownership of a [handle]'s contents, deleting the persistent record of the file data. *)
 
-val render : {OnBegin : transaction {},
+val peek : handle -> transaction claim_result
+(* Like [claim], but keeps the file in temporary storage.  Beware that files older than 30 minutes may be removed automatically! *)
+
+val render : {AutoSubmit : bool,
+              (* If [True], no extra form submit button is included, and file is uploaded once file selection dialog is closed. *)
+              OnBegin : transaction {},
               (* Run this when an upload begins. *)
               OnSuccess : handle -> transaction {}
               (* Run this after a successful upload. *)}

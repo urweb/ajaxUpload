@@ -32,7 +32,15 @@ fun claim h =
              WHERE Handle = {[h]});
         return (Found r)
 
-fun render {OnBegin = ob, OnSuccess = os} =
+fun peek h =
+    ro <- oneOrNoRows1 (SELECT scratch.Filename, scratch.MimeType, scratch.Content
+                        FROM scratch
+                        WHERE scratch.Handle = {[h]});
+    return (case ro of
+                None => NotFound
+              | Some r => Found r)
+
+fun render {AutoSubmit = as, OnBegin = ob, OnSuccess = os} =
     iframeId <- fresh;
     submitId <- fresh;
     submitId' <- return (AjaxUploadFfi.idToString submitId);
@@ -50,6 +58,6 @@ fun render {OnBegin = ob, OnSuccess = os} =
             <upload{#File}/>
             <submit action={upload} id={submitId} onmousedown={ob} onkeydown={os}/>
           </form>
-          {AjaxUploadFfi.tweakForm iframeId submitId}
+          {AjaxUploadFfi.tweakForm as iframeId submitId}
         </xml>
     end
