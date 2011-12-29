@@ -1,0 +1,5 @@
+library config
+ffi ajaxUploadFfi
+link -lurweb_ajaxUpload
+
+ajaxUpload
