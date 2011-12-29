@@ -25,24 +25,30 @@ fun claim h =
     ro <- oneOrNoRows1 (SELECT scratch.Filename, scratch.MimeType, scratch.Content
                         FROM scratch
                         WHERE scratch.Handle = {[h]});
-    return (case ro of
-                None => NotFound
-              | Some r => Found r)
+    case ro of
+        None => return NotFound
+      | Some r =>
+        dml (DELETE FROM scratch
+             WHERE Handle = {[h]});
+        return (Found r)
 
-fun render {} =
+fun render {OnBegin = ob, OnSuccess = os} =
     iframeId <- fresh;
     submitId <- fresh;
+    submitId' <- return (AjaxUploadFfi.idToString submitId);
     let
         fun upload r =
             h <- nextval handles;
             dml (INSERT INTO scratch (Handle, Filename, MimeType, Content, Created)
                  VALUES ({[h]}, {[fileName r.File]}, {[fileMimeType r.File]}, {[fileData r.File]}, CURRENT_TIMESTAMP));
-            return <xml>OK!</xml>
+            return <xml><body>
+              {AjaxUploadFfi.notifySuccess (AjaxUploadFfi.stringToId submitId') h}
+            </body></xml>
     in
         return <xml>
           <form>
             <upload{#File}/>
-            <submit action={upload} id={submitId}/>
+            <submit action={upload} id={submitId} onmousedown={ob} onkeydown={os}/>
           </form>
           {AjaxUploadFfi.tweakForm iframeId submitId}
         </xml>

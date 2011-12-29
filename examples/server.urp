@@ -2,5 +2,6 @@ library ../src/ur
 rewrite url Server/*
 database dbname=test
 sql server.sql
+allow mime image/jpeg
 
 server

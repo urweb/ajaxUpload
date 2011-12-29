@@ -12,5 +12,9 @@ datatype claim_result =
 val claim : handle -> transaction claim_result
 (* In server-side code, claim ownership of a [handle]'s contents, deleting the persistent record of the file data. *)
 
-val render : {} -> transaction xbody
+val render : {OnBegin : transaction {},
+              (* Run this when an upload begins. *)
+              OnSuccess : handle -> transaction {}
+              (* Run this after a successful upload. *)}
+             -> transaction xbody
 (* Produce HTML for a file upload control *)
