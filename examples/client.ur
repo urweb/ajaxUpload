@@ -1,4 +1,4 @@
-(* Note that this will only work if you copy src/js/ajaxUpload.js to /tmp! *)
+(* Note that this will only work if you get the file src/js/ajaxUpload.js to appear in the root of http://localhost/ ! *)
 
 sequence ids
 
