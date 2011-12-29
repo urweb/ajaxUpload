@@ -5,7 +5,7 @@ table images : { Id : int, MimeType : string, Content : blob }
 
 fun choice b =
     status <- source <xml/>;
-    au <- AjaxUpload.render {AutoSubmit = b,
+    au <- AjaxUpload.render {SubmitLabel = if b then None else Some "Upload it!",
                              OnBegin = set status <xml>Uploading</xml>,
                              OnSuccess = fn h =>
                                             let

@@ -15,8 +15,8 @@ val claim : handle -> transaction claim_result
 val peek : handle -> transaction claim_result
 (* Like [claim], but keeps the file in temporary storage.  Beware that files older than 30 minutes may be removed automatically! *)
 
-val render : {AutoSubmit : bool,
-              (* If [True], no extra form submit button is included, and file is uploaded once file selection dialog is closed. *)
+val render : {SubmitLabel : option string,
+              (* Text for submit button, or [None] to auto-submit when selected file changes *)
               OnBegin : transaction {},
               (* Run this when an upload begins. *)
               OnSuccess : handle -> transaction {}

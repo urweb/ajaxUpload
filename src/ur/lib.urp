@@ -3,4 +3,5 @@ ffi ajaxUploadFfi
 link -lurweb_ajaxUpload
 jsFunc AjaxUploadFfi.getHandle=getHandle
 
+$/option
 ajaxUpload
