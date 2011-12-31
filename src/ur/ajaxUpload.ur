@@ -40,23 +40,26 @@ fun peek h =
                 None => NotFound
               | Some r => Found r)
 
-fun render {SubmitLabel = sl, OnBegin = ob, OnSuccess = os} =
+fun render {SubmitLabel = sl, OnBegin = ob, OnSuccess = os, OnError = oe} =
     iframeId <- fresh;
     submitId <- fresh;
     submitId' <- return (AjaxUploadFfi.idToString submitId);
     let
         fun upload r =
-            h <- nextval handles;
-            dml (INSERT INTO scratch (Handle, Filename, MimeType, Content, Created)
-                 VALUES ({[h]}, {[fileName r.File]}, {[fileMimeType r.File]}, {[fileData r.File]}, CURRENT_TIMESTAMP));
-            return <xml><body>
-              {AjaxUploadFfi.notifySuccess (AjaxUploadFfi.stringToId submitId') h}
-            </body></xml>
+            if Option.isNone (checkMime (fileMimeType r.File)) then
+                return <xml><body>{AjaxUploadFfi.notifyError (AjaxUploadFfi.stringToId submitId')}</body></xml>
+            else
+                h <- nextval handles;
+                dml (INSERT INTO scratch (Handle, Filename, MimeType, Content, Created)
+                     VALUES ({[h]}, {[fileName r.File]}, {[fileMimeType r.File]}, {[fileData r.File]}, CURRENT_TIMESTAMP));
+                return <xml><body>
+                  {AjaxUploadFfi.notifySuccess (AjaxUploadFfi.stringToId submitId') h}
+                </body></xml>
     in
         return <xml>
           <form>
             <upload{#File}/>
-            <submit value={Option.get "" sl} action={upload} id={submitId} onmousedown={ob} onkeydown={os}/>
+            <submit value={Option.get "" sl} action={upload} id={submitId} onmousedown={ob} onkeydown={os} onmouseup={oe}/>
           </form>
           {AjaxUploadFfi.tweakForm (Option.isNone sl) iframeId submitId}
         </xml>

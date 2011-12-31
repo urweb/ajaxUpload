@@ -7,6 +7,7 @@ fun choice b =
     status <- source <xml/>;
     au <- AjaxUpload.render {SubmitLabel = if b then None else Some "Upload it!",
                              OnBegin = set status <xml>Uploading</xml>,
+                             OnError = set status <xml><b>Upload failed!</b></xml>,
                              OnSuccess = fn h =>
                                             let
                                                 fun addImage () =

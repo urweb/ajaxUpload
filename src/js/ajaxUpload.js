@@ -27,6 +27,11 @@ function tweakFormCode(autoSubmit, iframeId, submitId) {
         subm.onkeydown = undefined;
     }
 
+    if (subm.withError == undefined) {
+        subm.withError = subm.onmouseup;
+        subm.onmouseup = undefined;
+    }
+
     if (autoSubmit) {
         subm.style.visibility = "hidden";
         for (var node = subm.previousSibling; node.tagName != "INPUT"; node = node.previousSibling);

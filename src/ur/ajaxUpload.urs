@@ -19,7 +19,9 @@ val render : {SubmitLabel : option string,
               (* Text for submit button, or [None] to auto-submit when selected file changes *)
               OnBegin : transaction {},
               (* Run this when an upload begins. *)
-              OnSuccess : handle -> transaction {}
-              (* Run this after a successful upload. *)}
+              OnSuccess : handle -> transaction {},
+              (* Run this after a successful upload. *)
+              OnError : transaction {}
+              (* Run this when upload fails (probably because of an unsupported MIME type). *)}
              -> transaction xbody
 (* Produce HTML for a file upload control *)
