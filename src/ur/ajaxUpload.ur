@@ -59,7 +59,7 @@ fun render {SubmitLabel = sl, OnBegin = ob, OnSuccess = os, OnError = oe} =
         return <xml>
           <form>
             <upload{#File}/>
-            <submit value={Option.get "" sl} action={upload} id={submitId} onmousedown={ob} onkeydown={os} onmouseup={oe}/>
+            <submit value={Option.get "" sl} action={upload} id={submitId} onmousedown={fn _ => ob} onkeydown={fn ev => os ev.KeyCode} onmouseup={fn _ => oe}/>
           </form>
           {AjaxUploadFfi.tweakForm (Option.isNone sl) iframeId submitId}
         </xml>

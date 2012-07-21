@@ -12,7 +12,7 @@ uw_Basis_string uw_AjaxUploadFfi_tweakForm(uw_context ctx, uw_Basis_bool autoSub
                           submitId,
                           "\"); subm.parentNode.target = \"",
                           iframeId,
-                          "\"; var onSub = subm.onmousedown; subm.onmousedown = undefined; subm.parentNode.onsubmit = function() { onSub(); return true; }; subm.withHandle = subm.onkeydown; subm.onkeydown = undefined; subm.withError = subm.onmouseup; subm.onmouseup = undefined; ",
+                          "\"; var onSub = subm.onmousedown; subm.onmousedown = undefined; subm.parentNode.onsubmit = function() { window.top.event = {}; onSub(); return true; }; subm.withHandle = subm.onkeydown; subm.onkeydown = undefined; subm.withError = subm.onmouseup; subm.onmouseup = undefined; ",
                           autoSubmit
                           ? "subm.style.visibility = \"hidden\"; for (var node = subm.previousSibling; node.tagName != \"INPUT\"; node = node.previousSibling); node.onchange = function() { subm.parentNode.submit(); }; "
                           : "",
@@ -34,7 +34,7 @@ uw_Basis_string uw_AjaxUploadFfi_notifyError(uw_context ctx, uw_Basis_string sub
   return uw_Basis_mstrcat(ctx,
                           "<script type=\"text/javascript\">var subm = window.top.document.getElementById(\"",
                           submitId,
-                          "\"); subm.withError(); </script>",
+                          "\"); window.top.event = {}; subm.withError(); </script>",
                           NULL);
 }
 
@@ -44,6 +44,9 @@ uw_Basis_string uw_AjaxUploadFfi_idToString(uw_context ctx, uw_Basis_string s) {
 
 uw_Basis_string uw_AjaxUploadFfi_stringToId(uw_context ctx, uw_Basis_string s) {
   char *s2 = s;
+
+  if (s2[0] == 'u' && s2[1] == 'w')
+    s2 += 2;
 
   if (*s2 == '-')
     ++s2;
