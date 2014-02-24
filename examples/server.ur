@@ -3,9 +3,9 @@ sequence ids
 table images : { Id : int, MimeType : string, Content : blob }
   PRIMARY KEY Id
 
-fun choice b =
+fun choice auto =
     status <- source <xml/>;
-    au <- AjaxUpload.render {SubmitLabel = if b then None else Some "Upload it!",
+    au <- AjaxUpload.render {SubmitLabel = if auto then None else Some "Upload it!",
                              OnBegin = set status <xml>Uploading</xml>,
                              OnError = set status <xml><b>Upload failed!</b></xml>,
                              OnSuccess = fn h =>

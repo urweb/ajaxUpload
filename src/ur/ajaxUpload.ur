@@ -45,7 +45,7 @@ fun render {SubmitLabel = sl, OnBegin = ob, OnSuccess = os, OnError = oe} =
     submitId <- fresh;
     submitId' <- return (AjaxUploadFfi.idToString submitId);
     let
-        fun upload r =
+        fun uploadAction r =
             if Option.isNone (checkMime (fileMimeType r.File)) then
                 return <xml><body>{AjaxUploadFfi.notifyError (AjaxUploadFfi.stringToId submitId')}</body></xml>
             else
@@ -59,7 +59,7 @@ fun render {SubmitLabel = sl, OnBegin = ob, OnSuccess = os, OnError = oe} =
         return <xml>
           <form>
             <upload{#File}/>
-            <submit value={Option.get "" sl} action={upload} id={submitId} onmousedown={fn _ => ob} onkeydown={fn ev => os ev.KeyCode} onmouseup={fn _ => oe}/>
+            <submit value={Option.get "" sl} action={uploadAction} id={submitId} onmousedown={fn _ => ob} onkeydown={fn ev => os ev.KeyCode} onmouseup={fn _ => oe}/>
           </form>
           {AjaxUploadFfi.tweakForm (Option.isNone sl) iframeId submitId}
         </xml>
