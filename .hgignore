@@ -14,6 +14,20 @@ syntax: glob
 *.log
 *.status
 
+Makefile.in
+src/c/Makefile.in
+ar-lib
+*.m4
+m4/libtool.m4
+m4/lt*.m4
+config.*
+configure
+depcomp
+compile
+install-sh
+ltmain.sh
+missing
+
 syntax: regexp
 
 ^Makefile$

@@ -4,6 +4,7 @@ LIB      := @LIB@
 INCLUDE  := @INCLUDE@
 
 LIB_UR   := $(LIB)/ur/ajaxUpload
+LIB_JS   := $(LIB)/js
 
 SUBDIRS  := src/c
 
@@ -14,6 +15,8 @@ install-exec-local:
 	cp src/ur/*.urs $(LIB_UR)/
 	cp src/ur/*.ur $(LIB_UR)/
 	cp src/ur/*.urp $(LIB_UR)/
+	mkdir -p $(LIB_JS)
+	cp src/js/*.js $(LIB_JS)/
 	mkdir -p $(INCLUDE)
 	cp include/*.h $(INCLUDE)/
 	-ldconfig
