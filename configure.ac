@@ -2,6 +2,7 @@ AC_INIT([urweb_ajaxUpload], [1.0])
 AC_USE_SYSTEM_EXTENSIONS
 AM_INIT_AUTOMAKE([-Wall -Werror foreign no-define])
 AC_PROG_CC()
+AM_PROG_AR()
 AC_PROG_LIBTOOL()
 AC_CONFIG_MACRO_DIR([m4])
 

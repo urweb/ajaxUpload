@@ -1,12 +1,12 @@
 ACLOCAL_AMFLAGS = -I m4
 
-LIB      := @LIB@
-INCLUDE  := @INCLUDE@
+LIB      = @LIB@
+INCLUDE  = @INCLUDE@
 
-LIB_UR   := $(LIB)/ur/ajaxUpload
-LIB_JS   := $(LIB)/js
+LIB_UR   = $(LIB)/ur/ajaxUpload
+LIB_JS   = $(LIB)/js
 
-SUBDIRS  := src/c
+SUBDIRS  = src/c
 
 .PHONY: package reauto
 
