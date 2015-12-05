@@ -3,8 +3,7 @@ ffi ajaxUploadFfi
 link -lurweb_ajaxUpload
 jsFunc AjaxUploadFfi.tweakForm=tweakForm
 jsFunc AjaxUploadFfi.idToString=idToString
-file /ajaxUpload.js ../../js/ajaxUpload.js
-script /ajaxUpload.js
+jsFile ../../js/ajaxUpload.js
 
 $/option
 ajaxUpload
