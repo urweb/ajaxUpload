@@ -1,7 +1,4 @@
-syntax: glob
-
 *~
-
 *.o
 .deps
 .libs
@@ -9,11 +6,9 @@ syntax: glob
 *.la
 *.exe
 *.sql
-
 *.cache
 *.log
 *.status
-
 Makefile.in
 src/c/Makefile.in
 ar-lib
@@ -27,12 +22,9 @@ compile
 install-sh
 ltmain.sh
 missing
-
-syntax: regexp
-
-^Makefile$
-^src/ur/config.urp$
-^src/c/Makefile$
-^libtool$
-^config.h$
-^stamp-h1$
+Makefile
+src/ur/config.urp
+src/c/Makefile
+libtool
+config.h
+stamp-h1
