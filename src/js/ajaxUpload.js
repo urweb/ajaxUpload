@@ -13,8 +13,8 @@ function tweakFormCode(autoSubmit, iframeId, submitId) {
     subm.parentNode.target = iframeId;
 
     if (subm.begin == undefined) {
-        subm.begin = subm.onmousedown;
-        subm.onmousedown = undefined;
+        subm.begin = subm.onblur;
+        subm.onblur = undefined;
     }
 
     subm.parentNode.onsubmit = function() {
@@ -28,8 +28,8 @@ function tweakFormCode(autoSubmit, iframeId, submitId) {
     }
 
     if (subm.withError == undefined) {
-        subm.withError = subm.onmouseup;
-        subm.onmouseup = undefined;
+        subm.withError = subm.onfocus;
+        subm.onfocus = undefined;
     }
 
     if (autoSubmit) {

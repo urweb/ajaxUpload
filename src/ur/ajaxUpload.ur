@@ -50,8 +50,11 @@ fun render {SubmitLabel = sl, OnBegin = ob, OnSuccess = os, OnError = oe} =
                 return <xml><body>{AjaxUploadFfi.notifyError (AjaxUploadFfi.stringToId submitId')}</body></xml>
             else
                 h <- nextval handles;
-                dml (INSERT INTO scratch (Handle, Filename, MimeType, Content, Created)
-                     VALUES ({[h]}, {[fileName r.File]}, {[fileMimeType r.File]}, {[fileData r.File]}, CURRENT_TIMESTAMP));
+                (case fileName r.File of
+                     None => dml (INSERT INTO scratch (Handle, Filename, MimeType, Content, Created)
+                                  VALUES ({[h]}, NULL, {[fileMimeType r.File]}, {[fileData r.File]}, CURRENT_TIMESTAMP))
+                   | Some fname => dml (INSERT INTO scratch (Handle, Filename, MimeType, Content, Created)
+                                        VALUES ({[h]}, {[Some fname]}, {[fileMimeType r.File]}, {[fileData r.File]}, CURRENT_TIMESTAMP)));
                 return <xml><body>
                   {AjaxUploadFfi.notifySuccess (AjaxUploadFfi.stringToId submitId') h}
                 </body></xml>
@@ -59,7 +62,7 @@ fun render {SubmitLabel = sl, OnBegin = ob, OnSuccess = os, OnError = oe} =
         return <xml>
           <form>
             <upload{#File}/>
-            <submit value={Option.get "" sl} action={uploadAction} id={submitId} onmousedown={fn _ => ob} onkeydown={fn ev => os ev.KeyCode} onmouseup={fn _ => oe}/>
+            <submit value={Option.get "" sl} action={uploadAction} id={submitId} onblur={ob} onkeydown={fn ev => os ev.KeyCode} onfocus={oe}/>
           </form>
           {AjaxUploadFfi.tweakForm (Option.isNone sl) iframeId submitId}
         </xml>
