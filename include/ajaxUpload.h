@@ -1,4 +1,4 @@
-#include <urweb.h>
+#include <urweb/urweb.h>
 
 uw_Basis_string uw_AjaxUploadFfi_tweakForm(uw_context, uw_Basis_bool autoSubmit, uw_Basis_string iframeId, uw_Basis_string submitId);
 uw_Basis_string uw_AjaxUploadFfi_notifySuccess(uw_context, uw_Basis_string submitId, uw_Basis_int handle);
