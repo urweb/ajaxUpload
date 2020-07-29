@@ -1,5 +1,3 @@
-(* Note that this will only work if you get the file src/js/ajaxUpload.js to appear in the root of http://localhost/ ! *)
-
 sequence ids
 
 table images : { Id : int, MimeType : string, Content : blob }
@@ -13,7 +11,7 @@ fun choice b =
       <button value="Create new widget"
               onclick={fn _ => au <- AjaxUpload.render {SubmitLabel = if b then None else Some "Upload it!",
                                                         OnBegin = set status <xml>Uploading</xml>,
-                                                        OnError = set status <xml><b>Upload failed!</b></xml>,
+                                                        OnError = set status <xml><strong>Upload failed!</strong></xml>,
                                                         OnSuccess = fn h =>
                                                                        let
                                                                            fun addImage () =
