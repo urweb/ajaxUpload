@@ -8,7 +8,7 @@ uw_Basis_string uw_AjaxUploadFfi_tweakForm(uw_context ctx, uw_Basis_bool autoSub
                           iframeId,
                           "\" name=\"",
                           iframeId,
-                          "\" src=\"#\" style=\"width:0;height:0;border:0px solid #fff;\"></iframe>\n<script type=\"text/javascript\">var subm = document.getElementById(\"",
+                          "\" src=\"about:blank\" style=\"width:0;height:0;border:0px solid #fff;\"></iframe>\n<script type=\"text/javascript\">var subm = document.getElementById(\"",
                           submitId,
                           "\"); subm.parentNode.target = \"",
                           iframeId,

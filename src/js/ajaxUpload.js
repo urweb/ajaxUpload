@@ -44,7 +44,7 @@ function tweakForm(autoSubmit, iframeId, submitId) {
         + iframeId
         + "\" name=\""
         + iframeId
-        + "\" src=\"#\" style=\"width:0;height:0;border:0px solid #fff;\"></iframe>\n<script type=\"text/javascript\">tweakFormCode("
+        + "\" src=\"about:blank\" style=\"width:0;height:0;border:0px solid #fff;\"></iframe>\n<script type=\"text/javascript\">tweakFormCode("
         + autoSubmit
         + ",\""
         + iframeId
