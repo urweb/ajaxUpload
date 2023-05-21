@@ -22,9 +22,9 @@ uw_Basis_string uw_AjaxUploadFfi_tweakForm(uw_context ctx, uw_Basis_bool autoSub
 
 uw_Basis_string uw_AjaxUploadFfi_notifySuccess(uw_context ctx, uw_Basis_string submitId, uw_Basis_int handle) {
   uw_Basis_string r = uw_Basis_mstrcat(ctx,
-                          "<script type=\"text/javascript\">var subm = window.top.document.getElementById(\"",
+                          "<script type=\"text/javascript\">var subm = parent.document.getElementById(\"",
                           submitId,
-                          "\"); window.top.event = {keyCode : ",
+                          "\"); parent.event = {keyCode : ",
                           uw_Basis_htmlifyInt(ctx, handle),
                           "}; subm.withHandle(); </script>",
                           NULL);
@@ -33,9 +33,9 @@ uw_Basis_string uw_AjaxUploadFfi_notifySuccess(uw_context ctx, uw_Basis_string s
 
 uw_Basis_string uw_AjaxUploadFfi_notifyError(uw_context ctx, uw_Basis_string submitId) {
   return uw_Basis_mstrcat(ctx,
-                          "<script type=\"text/javascript\">var subm = window.top.document.getElementById(\"",
+                          "<script type=\"text/javascript\">var subm = parent.document.getElementById(\"",
                           submitId,
-                          "\"); window.top.event = {}; subm.withError(); </script>",
+                          "\"); parent.event = {}; subm.withError(); </script>",
                           NULL);
 }
 
